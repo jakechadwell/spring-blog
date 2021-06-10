@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Roll Result</title>
+</head>
+<body>
+<h1>Here are the results: </h1>
+<h4 th:if="${correct}==true">Correct!</h4>
+<h4 th:if="${incorrect==false}">Incorrect :(</h4>
+<br>
+<p>Your guess was: <span th:text="${guess}"></span></p>
+<p>Roll was: <span th:text="${diceRoll}"></span></p>
+</body>
+</html>
