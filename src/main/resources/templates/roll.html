@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+<head th:replace="partials/partials :: head('Roll')">
     <title>Roll</title>
 </head>
 <body>
-
+<nav th:replace="partials/partials :: navbar"></nav>
 <h1>Guess a number!</h1>
 <ul>
     <li><a th:href="@{/roll-dice/1}">1</a></li>
@@ -15,5 +14,6 @@
     <li><a th:href="@{/roll-dice/5}">5</a></li>
     <li><a th:href="@{/roll-dice/6}">6</a></li>
 </ul>
+<footer th:replace="partials/partials :: footer"></footer>
 </body>
 </html>
