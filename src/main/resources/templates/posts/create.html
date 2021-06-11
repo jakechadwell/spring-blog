@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/partials :: head('Update')"/>
+<body>
+<nav th:replace="partials/partials :: navbar"/>
+
+<form action="/posts/create" method="post">
+    <label for="title">Title</label>
+    <input id="title" type="text" name="title">
+    <label for="body">Title</label>
+    <textarea id="body" name="body"></textarea>
+    <input type="submit" class="btn" value="SUBMIT">
+</form>
+
+</body>
+</html>

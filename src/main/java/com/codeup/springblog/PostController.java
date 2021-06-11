@@ -4,36 +4,53 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-
 @Controller
 public class PostController {
+    private final PostRepository postDao;
+    public PostController(PostRepository postDao){this.postDao = postDao;}
+
+    @GetMapping(path = "/posts/delete/{id}")
+    public String deletePost(@PathVariable Long id){
+        postDao.deletePostById(id);
+        return "redirect:/posts/index";
+    }
+
+    @GetMapping(path = "/posts/edit/{id}")
+    public String editPost(@PathVariable long id, Model model){
+        model.addAttribute("post", postDao.getById(id));
+        return "posts/update";
+    }
+
+    @PostMapping(path = "/posts/edit/{id}")
+    public String updatePost(@PathVariable long id, @RequestParam String title, @RequestParam String body){
+        Post post = postDao.findById(id).get();
+        post.setTitle(title);
+        post.setBody(body);
+        postDao.save(post);
+        return "redirect:/posts";
+    }
+
     @GetMapping(path = "/posts")
     public String post(Model model) {
-        ArrayList<Post> postList = new ArrayList<>();
-        Post post3 = new Post("Post3", "This is yet another new post.");
-        Post post2 = new Post("Post2", "This is another new post.");
-        postList.add(post2);
-        postList.add(post3);
-        model.addAttribute("postList", postList);
+        model.addAttribute("postList", postDao.findAll());
         return "posts/index";
     }
 
-    @RequestMapping(path = "/posts/{id}", method = RequestMethod.GET)
-    public String postId(@PathVariable String id, Model model) {
-        Post post = new Post("Post1", "This is a new post.");
-        model.addAttribute("post", post);
-        model.addAttribute("id", id);
+    @GetMapping(path = "/posts/{id}")
+    public String postId(@PathVariable long id, Model model) {
+        model.addAttribute("post", postDao.getById(id));
         return "posts/show";
     }
 
-    @RequestMapping(path = "/posts/create", method = RequestMethod.GET)
-    public String postsCreate() {
-        return "view the form for creating a post";
+    @GetMapping(path = "/posts/create")
+    public String postsCreate(Model model) {
+        model.addAttribute("post", new Post());
+        return "posts/create";
     }
 
-    @RequestMapping(path = "/posts/create", method = RequestMethod.POST)
-    public String newPost() {
-        return "create a new post";
+    @PostMapping(path = "/posts/create")
+    public String newPost(@ModelAttribute Post post) {
+        postDao.save(post);
+        return "redirect:/posts";
     }
 }

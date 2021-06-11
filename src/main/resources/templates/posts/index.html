@@ -10,6 +10,13 @@
 <th:block th:each="post: ${postList}">
     <p th:text="${post.title}"></p>
     <p th:text="${post.body}"></p>
+    <button type="submit" name="delete"></button>
+    <form th:action="'posts/edit/' + ${post.id}" method="get">
+        <button type="submit">EDIT</button>
+    </form>
+    <form th:action="'posts/delete/' + ${post.id}" method="get">
+        <button type="submit">DELETE</button>
+    </form>
 </th:block>
 
 <footer th:replace="partials/partials :: footer"></footer>
