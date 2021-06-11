@@ -24,7 +24,7 @@ public class PostController {
         Post post = new Post("Post1", "This is a new post.");
         model.addAttribute("post", post);
         model.addAttribute("id", id);
-        return "views post from " + id;
+        return "posts/show";
     }
 
     @RequestMapping(path = "/posts/create", method = RequestMethod.GET)

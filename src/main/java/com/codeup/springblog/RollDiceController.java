@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class RollDiceController {
     @GetMapping("/roll-dice")
     public String roll(){
-        return "rolldice";
+        return "roll";
     }
 
     @GetMapping("/roll-dice/{guess}")
@@ -23,6 +23,6 @@ public class RollDiceController {
         }
         model.addAttribute("userGuess", guess);
         model.addAttribute("diceRoll", diceRoll);
-        return "Result";
+        return "result";
     }
 }
