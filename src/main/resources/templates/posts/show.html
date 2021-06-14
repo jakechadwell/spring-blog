@@ -9,6 +9,7 @@
 <h4>Showing post <span th:text="${id}"></span>: </h4>
 <p th:text="${post.title}"></p>
 <p th:text="${post.body}"></p>
+<p th:text="${post.user.email}"></p>
 
 <footer th:replace="partials/partials :: footer"></footer>
 </body>

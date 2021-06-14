@@ -7,7 +7,12 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class PostController {
     private final PostRepository postDao;
-    public PostController(PostRepository postDao){this.postDao = postDao;}
+    private final UserRepository userDao;
+
+    public PostController(PostRepository postDao, UserRepository userDao){
+        this.postDao = postDao;
+        this.userDao = userDao;
+    }
 
     @GetMapping(path = "/posts/delete/{id}")
     public String deletePost(@PathVariable Long id){
@@ -50,7 +55,8 @@ public class PostController {
 
     @PostMapping(path = "/posts/create")
     public String newPost(@ModelAttribute Post post) {
-        postDao.save(post);
+        User user = userDao.getById(1L);
+        postDao.save(new Post(post.getTitle(), post.getBody(), user));
         return "redirect:/posts";
     }
 }
