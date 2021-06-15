@@ -20,18 +20,18 @@ public class PostController {
         return "redirect:/posts/index";
     }
 
-    @GetMapping(path = "/posts/edit/{id}")
+    @GetMapping(path = "/posts/{id}/edit")
     public String editPost(@PathVariable long id, Model model){
         model.addAttribute("post", postDao.getById(id));
         return "posts/update";
     }
 
-    @PostMapping(path = "/posts/edit/{id}")
-    public String updatePost(@PathVariable long id, @RequestParam String title, @RequestParam String body){
-        Post post = postDao.findById(id).get();
-        post.setTitle(title);
-        post.setBody(body);
-        postDao.save(post);
+    @PostMapping(path = "/posts/{id}/edit")
+    public String updatePost(@PathVariable long id, @ModelAttribute Post post){
+        Post newPost = postDao.getById(id);
+        newPost.setTitle(post.getTitle());
+        newPost.setBody(post.getBody());
+        postDao.save(newPost);
         return "redirect:/posts";
     }
 
