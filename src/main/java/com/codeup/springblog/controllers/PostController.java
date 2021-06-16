@@ -1,13 +1,12 @@
-package com.codeup.springblog;
-import com.codeup.springblog.EmailService;
-import org.apache.naming.factory.SendMailFactory;
+package com.codeup.springblog.controllers;
+import com.codeup.springblog.daos.PostRepository;
+import com.codeup.springblog.daos.UserRepository;
+import com.codeup.springblog.models.Post;
+import com.codeup.springblog.models.User;
+import com.codeup.springblog.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @Controller
 public class PostController {
