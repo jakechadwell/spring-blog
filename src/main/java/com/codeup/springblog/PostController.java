@@ -1,15 +1,22 @@
 package com.codeup.springblog;
-
+import com.codeup.springblog.EmailService;
+import org.apache.naming.factory.SendMailFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @Controller
 public class PostController {
+    private final EmailService emailService;
     private final PostRepository postDao;
     private final UserRepository userDao;
 
-    public PostController(PostRepository postDao, UserRepository userDao){
+    public PostController(EmailService emailService, PostRepository postDao, UserRepository userDao){
+        this.emailService = emailService;
         this.postDao = postDao;
         this.userDao = userDao;
     }
@@ -57,6 +64,7 @@ public class PostController {
     public String newPost(@ModelAttribute Post post) {
         User user = userDao.getById(1L);
         postDao.save(new Post(post.getTitle(), post.getBody(), user));
+        emailService.prepareAndSend(post, "new post created", post.getBody());
         return "redirect:/posts";
     }
 }
